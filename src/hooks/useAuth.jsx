@@ -6,7 +6,7 @@ import csrfApi from "../api/csrf";
 import Cookies from "universal-cookie";
 import userApi from "../api/me";
 import logoutApi from "../api/Logout";
-import useAuthStore from "../Context/UserAuthStore";
+import useAuthStore from "../context/userAuthStore";
 
 const useAuth = () => {
   const { delUser } = useAuthStore();
@@ -19,6 +19,7 @@ const useAuth = () => {
 
   const registerAccount = async (data) => {
     setLoading(true);
+    console.log(data);
     try {
       const res = await registerApi({
         method: "post",
@@ -53,10 +54,12 @@ const useAuth = () => {
         data,
       });
       setResponse(res.data);
-      cookies.set("Authorization", res.data.token);
+      console.log(res.data)
+      cookies.set("Authorization", res.data.data.token);
       // console.log(res.data);
       const temp = await getUser();
       setUser(temp);
+      console.log(temp)
       navigate("/");
     } catch (err) {
       console.log(err.response.data);
@@ -75,6 +78,8 @@ const useAuth = () => {
       cookies.remove("Authorization");
       delUser();
       setResponse(res.data);
+      console.log(res.data)
+      navigate("/login")
     } catch (err) {
       delUser();
       console.log(err.response.data);

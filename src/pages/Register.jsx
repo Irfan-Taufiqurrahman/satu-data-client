@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Input from "@mui/material/Input";
 import { Link as LinkRouter } from "react-router-dom";
 import Logo from "../assets/images/Jatim-logo.png";
 import { useFormik } from "formik";
@@ -23,7 +24,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <LinkRouter to="/">SIKOMPETEN</LinkRouter> {new Date().getFullYear()}
+      <LinkRouter to="/">Satu Data</LinkRouter> {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -44,8 +45,51 @@ const validationSchema = yup.object({
     .string("Masukkan Ulang Password")
     .min(6, "password minimal 6 karakter")
     .required("Password tidak boleh kosong"),
-  name: yup.string("Masukkan Nama").required("Nama Lengkap tidak boleh kosong"),
+  name: yup
+  .string("Masukkan Nama")
+  .required("Nama Lengkap tidak boleh kosong"),
+  pic: yup
+  .string("Masukan Nomor Telphone yang dapat dihubungi")
+  .required("Nomor telphone tidak boleh kosong"),
+  covering_letter: yup
+  .string("Masukan Link Google Drive Berisi Surat Pengantar")
+  .required("Surat pengantar wajib diisi"),
 });
+
+function FileInput({ field, form, ...other }) {
+  const fileInputRef = React.useRef();
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleChange = (event) => {
+    const file = event.target.files[0];
+    form.setFieldValue(field.name, file);
+  };
+
+  return (
+    <>
+      <TextField
+        margin="normal"
+        required
+        fullWidth
+        id={field.name}
+        label={other.label}
+        onClick={handleClick}
+        value={field.value?.name || ""}
+        InputProps={{ readOnly: true }}
+        {...other}
+      />
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleChange}
+        style={{ display: "none" }}
+      />
+    </>
+  );
+}
 
 const SignUpPage = () => {
   const { loading, error, registerAccount } = useAuth();
@@ -55,6 +99,8 @@ const SignUpPage = () => {
       email: "",
       password: "",
       name: "",
+      pic: "",
+      covering_letter: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -148,6 +194,49 @@ const SignUpPage = () => {
                     formik.touched.confirm_password && formik.errors.confirm_password
                   }
                   autoComplete="current-password"
+                />
+                </div>
+              </div>
+              <div className="flex space-x-2">
+              <div className=" w-1/2">
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="pic"
+                    label="pic"
+                    type="string"
+                    id="pic"
+                    value={formik.values.pic}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.pic && Boolean(formik.errors.pic)
+                    }
+                    helperText={
+                      formik.touched.pic && formik.errors.pic
+                    }
+                    // autoComplete="current-password"
+                  />
+                </div>
+                <div className="w-1/2">
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="covering_letter"
+                  label="Link Cloud Surat Pengantar"
+                  type="string"
+                  id="covering_letter"
+                  // accep
+                  // inputProps={{ accept: "pdf" }} // only accept PDF files
+                  value={formik.values.covering_letter}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.covering_letter && Boolean(formik.errors.covering_letter)
+                  }
+                  helperText={
+                    formik.touched.covering_letter && formik.errors.covering_letter
+                  }
                 />
                 </div>
               </div>

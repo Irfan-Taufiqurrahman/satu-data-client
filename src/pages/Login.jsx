@@ -12,8 +12,8 @@ import Alert from "../components/alert";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-import useAuth from "../Hooks/useAuth";
-import useAuthStore from "../Context/UserAuthStore";
+import useAuth from "../hooks/useAuth";
+import useAuthStore from "../context/userAuthStore";
 
 function Copyright(props) {
   return (
@@ -157,7 +157,7 @@ const LoginPage = () => {
                 <Grid container>
                   <Grid item>
                     <LinkRouter
-                      to="/signup"
+                      to="/register"
                       className="underline text-sky-600  decoration-solid"
                     >
                       {"Tidak punya akun? Daftar"}

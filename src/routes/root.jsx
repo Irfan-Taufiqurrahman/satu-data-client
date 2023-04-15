@@ -9,6 +9,7 @@ import { getContacts,createContact } from "../contacts";
 import Sidebar from "../components/sidebar";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import {AppDatasets} from "../components/TableDataset";
 
 export async function action() {
   const contact = await createContact();
@@ -34,7 +35,8 @@ export default function Root() {
           {/* Navbar */}
           <Navbar />
           <div className="md:p-10 p-4 bg-gray-50 w-full h-full flex-grow">
-            <Outlet />
+            {/* <Outlet /> */}
+            <AppDatasets />
           </div>
           <div className="flex flex-col w-full ">
           <Footer />

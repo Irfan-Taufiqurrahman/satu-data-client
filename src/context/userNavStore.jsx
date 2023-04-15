@@ -7,8 +7,8 @@ const useNavStore = create((set, get) => ({
   activeNav: [
     {
       id: 1,
-      name: "Configuration",
-      href: "/configuration",
+      name: "Account",
+      href: "/accounts",
       active: false,
       asesi: true,
       asesor: false,
@@ -17,8 +17,8 @@ const useNavStore = create((set, get) => ({
     },
     {
       id: 2,
-      name: "Dashboard",
-      href: "/dashboard",
+      name: "Dataset",
+      href: "/",
       active: true,
       asesi: true,
       asesor: true,
@@ -27,8 +27,8 @@ const useNavStore = create((set, get) => ({
     },
     {
       id: 3,
-      name: "Uji Kompetensi",
-      href: "/dashboard/uji-kompetensi",
+      name: "Taksonomi Data",
+      href: "/maindata",
       active: false,
       asesi: true,
       asesor: true,

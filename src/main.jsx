@@ -4,15 +4,11 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { useQuery, QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 import "./index.css";
 // import Root from "./routes/root";
 import ErrorPage from "./error-page";
-import EditContact, {
-  action as editAction
-} from "./routes/Edit";
-import Contact, {
-  loader as contactLoader,
-} from "./routes/Contact";
 import Index from "./routes/index";
 
 import Root, { loader as rootLoader, 
@@ -20,10 +16,11 @@ import Root, { loader as rootLoader,
               action, 
 } from "./routes/root";
 
-// import Root from "./routes/root"
-import { action as destroyAction } from "./routes/destroy";
 import Login from "./pages/Login";
 import SignUp from "./pages/Register";
+import ListUsers from "./routes/ListUsers";
+import MainData from "./routes/MainData";
+import TestCreate from "./routes/testCreate";
 
 const router = createBrowserRouter([
   {
@@ -32,23 +29,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     loader: rootLoader,
     action: rootAction,
-    children: [
-      {
-        path: "contacts/:contactId",
-        element: <Contact />,
-        loader: contactLoader,
-        action: editAction,
-      },
-      {
-        path: "contacts/:contactId/edit",
-        element: <EditContact />,
-        loader: contactLoader,
-      },
-      {
-        path: "contacts/:contactId/destroy",
-        action: destroyAction,
-        errorElement: <div>Oops! There was an error.</div>,
-      },
+    children: [      
       {
         index: true, 
         element: <Index />
@@ -65,10 +46,27 @@ const router = createBrowserRouter([
     element: <SignUp />,
     errorElement: <div>Oops! There was an error.</div>,
   },
+  {
+    path: "accounts",
+    element: <ListUsers />,
+    errorElement: <div>Oops! There was an error.</div>,
+  },
+  {
+    path: "maindata",
+    element: <MainData />,
+    errorElement: <div>Oops! There was an error.</div>,
+  },
+  {
+    path: "testcreate",
+    element: <TestCreate />,
+    errorElement: <div>Oops! There was an error.</div>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );
