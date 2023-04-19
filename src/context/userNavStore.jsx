@@ -28,7 +28,7 @@ const useNavStore = create((set, get) => ({
     {
       id: 3,
       name: "Taksonomi Data",
-      href: "/maindata",
+      href: "/main-data",
       active: false,
       asesi: true,
       asesor: true,
