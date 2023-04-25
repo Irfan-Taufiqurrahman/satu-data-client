@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import {
   createMainData,
@@ -10,23 +10,10 @@ import Loading from "../components/Loading";
 import AddIcon from "@mui/icons-material/Add";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
-import Paper from "@mui/material/Paper";
 import FieldInput from "./config/fieldInput";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import {
-  Button,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-} from "@mui/material";
-import ViewWeekIcon from "@mui/icons-material/ViewWeek";
+import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import DataTable from "../components/DataTable";
 
 const ModalTambah = ({ setOpenAdd }) => {
   const mainDataMutation = useMutation(createMainData, {
@@ -140,6 +127,7 @@ const ModalUbah = ({ setOpenEdit, data }) => {
       setOpenEdit(false);
     },
   });
+  // console.log(data);
 
   const validationSchema = yup.object({
     code_main: yup
@@ -221,7 +209,7 @@ const ModalUbah = ({ setOpenEdit, data }) => {
                     type="submit"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                   >
-                    Tambah
+                    Ubah
                   </button>
                   <button
                     data-modal-hide="defaultModal"
@@ -318,8 +306,8 @@ const ModalConfirm = ({ setOpenConfirm, deleteData }) => {
 };
 
 const MainDataPage = () => {
-  const { data, isLoading } = useQuery("mainData", getAllMain, {
-    refetchInterval: 200,
+  const mainData = useQuery("mainData", getAllMain, {
+    // refetchInterval: 200,
   });
   const mainDataDelete = useMutation(removeMainData);
   const navigate = useNavigate();
@@ -328,6 +316,18 @@ const MainDataPage = () => {
   const [dataEdit, setDataEdit] = useState(null);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const columns = useMemo(() => [
+    {
+      Header: "Code Main Data",
+      accessor: "code_main",
+    },
+    {
+      Header: "Title Main Data",
+      accessor: "title_main",
+    },
+  ]);
+  const dataTable = useMemo(() => mainData.data, [mainData.data]);
+  // console.log(dataTable);
 
   return (
     <div>
@@ -335,7 +335,7 @@ const MainDataPage = () => {
         Main Data
         <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
       </div>
-      {isLoading ? (
+      {mainData.isLoading ? (
         <Loading />
       ) : (
         <div className="sm:w-11/12 mx-auto">
@@ -349,72 +349,22 @@ const MainDataPage = () => {
           </Button>
           {openAdd && <ModalTambah setOpenAdd={setOpenAdd} />}
 
-          <TableContainer component={Paper} className="shadow-md ">
-            <Table>
-              <TableHead>
-                <TableRow className="bg-gray-100">
-                  {/* <TableCell align="center">No</TableCell> */}
-                  <TableCell align="center">Code Main Data</TableCell>
-                  <TableCell align="center">Title Main Data</TableCell>
-                  <TableCell align="center">Action</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data?.map((main, index) => (
-                  <TableRow key={index}>
-                    {/* <TableCell align="center">{index + 1}</TableCell> */}
-                    <TableCell align="center">{main.code_main}</TableCell>
-                    <TableCell align="center">{main.title_main}</TableCell>
-                    <TableCell align="center">
-                      <Tooltip title="Lihat Theamtic Data">
-                        <IconButton
-                          className="text-sky-500"
-                          onClick={() => {
-                            navigate(`theamtic-data/${main.id}`);
-                          }}
-                        >
-                          <ViewWeekIcon />
-                        </IconButton>
-                      </Tooltip>
-
-                      <Tooltip title="Ubah Main Data">
-                        <IconButton
-                          className="text-yellow-500"
-                          onClick={() => {
-                            setOpenEdit(true);
-                            setDataEdit(main);
-                          }}
-                        >
-                          <EditIcon />
-                        </IconButton>
-                      </Tooltip>
-                      {openEdit && (
-                        <ModalUbah setOpenEdit={setOpenEdit} data={dataEdit} />
-                      )}
-
-                      <Tooltip title="Delete">
-                        <IconButton
-                          className="text-rose-500"
-                          onClick={() => {
-                            setOpenConfirm(true);
-                            setIdData(main.id);
-                          }}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Tooltip>
-                      {openConfirm && (
-                        <ModalConfirm
-                          setOpenConfirm={setOpenConfirm}
-                          deleteData={() => mainDataDelete.mutate(idData)}
-                        />
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <DataTable
+            columns={columns}
+            data={dataTable}
+            setOpenEdit={setOpenEdit}
+            setDataEdit={setDataEdit}
+            setIdData={setIdData}
+            setOpenConfirm={setOpenConfirm}
+            link={"theamtic-data/"}
+          />
+          {openEdit && <ModalUbah setOpenEdit={setOpenEdit} data={dataEdit} />}
+          {openConfirm && (
+            <ModalConfirm
+              setOpenConfirm={setOpenConfirm}
+              deleteData={() => mainDataDelete.mutate(idData)}
+            />
+          )}
         </div>
       )}
     </div>
