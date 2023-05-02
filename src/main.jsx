@@ -30,6 +30,7 @@ import {
   ThemeProvider,
 } from "@mui/material/styles";
 import TheamticData from "./pages/TheamticData";
+import TopicData from "./pages/TopicData";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,11 @@ const router = createBrowserRouter([
         index: false,
         path: "theamtic-data/:id",
         element: <TheamticData />,
+      },
+      {
+        index: false,
+        path: "topic-data/:id",
+        element: <TopicData />,
       },
     ],
   },
