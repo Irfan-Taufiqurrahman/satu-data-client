@@ -94,8 +94,8 @@ const DataTable = ({
   setDataEdit = null,
   setOpenConfirm = null,
   setIdData = null,
-  link = null,
-  title = null,
+  link = "",
+  title = "",
 }) => {
   const {
     getTableProps,
@@ -192,8 +192,8 @@ const DataTable = ({
                   setIdData &&
                   link ? (
                     <TableCell align="center">
-                      <Tooltip title="lihat">
-                        {title === "main" && (
+                      {title === "main" && (
+                        <Tooltip title="lihat">
                           <IconButton
                             className="text-sky-500"
                             onClick={() => {
@@ -202,8 +202,20 @@ const DataTable = ({
                           >
                             <ViewWeekIcon />
                           </IconButton>
-                        )}
-                      </Tooltip>
+                        </Tooltip>
+                      )}
+                      {title === "thematic-data" && (
+                        <Tooltip title="lihat">
+                          <IconButton
+                            className="text-sky-500"
+                            onClick={() => {
+                              navigate(link + row.original.code_thematic);
+                            }}
+                          >
+                            <ViewWeekIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                       {/* {console.log(row)} */}
                       <Tooltip title="Ubah">
                         <IconButton

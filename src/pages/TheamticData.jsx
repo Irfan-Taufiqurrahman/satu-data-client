@@ -369,7 +369,8 @@ const TheamticData = () => {
             setDataEdit={setDataEdit}
             setIdData={setIdData}
             setOpenConfirm={setOpenConfirm}
-            link={"theamtic-data/"}
+            link={"/main-data/topic-data/"}
+            title="thematic-data"
           />
           {openEdit && <ModalUbah setOpenEdit={setOpenEdit} data={dataEdit} />}
 
