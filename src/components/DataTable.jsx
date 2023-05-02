@@ -90,11 +90,12 @@ const GlobalFilter = ({ filter, setFilter }) => {
 const DataTable = ({
   columns,
   data,
-  setOpenEdit,
-  setDataEdit,
-  setOpenConfirm,
-  setIdData,
-  link,
+  setOpenEdit = null,
+  setDataEdit = null,
+  setOpenConfirm = null,
+  setIdData = null,
+  link = null,
+  title = null,
 }) => {
   const {
     getTableProps,
@@ -158,14 +159,22 @@ const DataTable = ({
                     {column.render("Header")}
                   </TableCell>
                 ))}
-                <TableCell align="center">Action</TableCell>
+                {setOpenEdit &&
+                setDataEdit &&
+                setOpenConfirm &&
+                setIdData &&
+                link ? (
+                  <TableCell align="center">Action</TableCell>
+                ) : (
+                  ""
+                )}
               </TableRow>
             ))}
           </TableHead>
           {/* {console.log(page)} */}
           <TableBody {...getTableBodyProps()}>
             {page.map((row, i) => {
-              // console.log("tes", row);
+              console.log("tes", row);
               prepareRow(row);
               return (
                 <TableRow {...row.getRowProps()}>
@@ -177,42 +186,52 @@ const DataTable = ({
                       </TableCell>
                     );
                   })}
-                  <TableCell align="center">
-                    <Tooltip title="lihat">
-                      <IconButton
-                        className="text-sky-500"
-                        onClick={() => {
-                          navigate(link + row.original.id);
-                        }}
-                      >
-                        <ViewWeekIcon />
-                      </IconButton>
-                    </Tooltip>
-                    {/* {console.log(row)} */}
-                    <Tooltip title="Ubah">
-                      <IconButton
-                        className="text-yellow-500"
-                        onClick={() => {
-                          setOpenEdit(true);
-                          setDataEdit(row.original);
-                        }}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </Tooltip>
+                  {setOpenEdit &&
+                  setDataEdit &&
+                  setOpenConfirm &&
+                  setIdData &&
+                  link ? (
+                    <TableCell align="center">
+                      <Tooltip title="lihat">
+                        {title === "main" && (
+                          <IconButton
+                            className="text-sky-500"
+                            onClick={() => {
+                              navigate(link + row.original.id);
+                            }}
+                          >
+                            <ViewWeekIcon />
+                          </IconButton>
+                        )}
+                      </Tooltip>
+                      {/* {console.log(row)} */}
+                      <Tooltip title="Ubah">
+                        <IconButton
+                          className="text-yellow-500"
+                          onClick={() => {
+                            setOpenEdit(true);
+                            setDataEdit(row.original);
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      </Tooltip>
 
-                    <Tooltip title="Delete">
-                      <IconButton
-                        className="text-rose-500"
-                        onClick={() => {
-                          setOpenConfirm(true);
-                          setIdData(row.original.id);
-                        }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
+                      <Tooltip title="Delete">
+                        <IconButton
+                          className="text-rose-500"
+                          onClick={() => {
+                            setOpenConfirm(true);
+                            setIdData(row.original.id);
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  ) : (
+                    ""
+                  )}
                 </TableRow>
               );
             })}

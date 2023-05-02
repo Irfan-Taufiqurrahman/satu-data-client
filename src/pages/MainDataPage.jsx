@@ -307,7 +307,7 @@ const ModalConfirm = ({ setOpenConfirm, deleteData }) => {
 
 const MainDataPage = () => {
   const mainData = useQuery("mainData", getAllMain, {
-    // refetchInterval: 200,
+    refetchInterval: 200,
   });
   const mainDataDelete = useMutation(removeMainData);
   const navigate = useNavigate();
@@ -316,6 +316,7 @@ const MainDataPage = () => {
   const [dataEdit, setDataEdit] = useState(null);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+
   const columns = useMemo(() => [
     {
       Header: "Code Main Data",
@@ -357,6 +358,7 @@ const MainDataPage = () => {
             setIdData={setIdData}
             setOpenConfirm={setOpenConfirm}
             link={"theamtic-data/"}
+            title="main"
           />
           {openEdit && <ModalUbah setOpenEdit={setOpenEdit} data={dataEdit} />}
           {openConfirm && (
