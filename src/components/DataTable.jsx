@@ -15,6 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import { useNavigate } from "react-router-dom";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const GlobalFilter1 = ({
   preGlobalFilteredRows,
@@ -159,11 +160,7 @@ const DataTable = ({
                     {column.render("Header")}
                   </TableCell>
                 ))}
-                {setOpenEdit &&
-                setDataEdit &&
-                setOpenConfirm &&
-                setIdData &&
-                link ? (
+                {setOpenEdit && setDataEdit && setOpenConfirm && setIdData ? (
                   <TableCell align="center">Action</TableCell>
                 ) : (
                   ""
@@ -171,26 +168,20 @@ const DataTable = ({
               </TableRow>
             ))}
           </TableHead>
-          {/* {console.log(page)} */}
           <TableBody {...getTableBodyProps()}>
             {page.map((row, i) => {
-              console.log("tes", row);
               prepareRow(row);
+
               return (
                 <TableRow {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     return (
                       <TableCell align="center" {...cell.getCellProps()}>
                         {cell.render("Cell")}
-                        {/* {console.log(cell)} */}
                       </TableCell>
                     );
                   })}
-                  {setOpenEdit &&
-                  setDataEdit &&
-                  setOpenConfirm &&
-                  setIdData &&
-                  link ? (
+                  {setOpenEdit && setDataEdit && setOpenConfirm && setIdData ? (
                     <TableCell align="center">
                       {title === "main" && (
                         <Tooltip title="lihat">
@@ -209,14 +200,33 @@ const DataTable = ({
                           <IconButton
                             className="text-sky-500"
                             onClick={() => {
-                              navigate(link + row.original.code_thematic);
+                              navigate(link, {
+                                state: {
+                                  thematic_code: row.original.code_thematic,
+                                },
+                              });
                             }}
                           >
                             <ViewWeekIcon />
                           </IconButton>
                         </Tooltip>
                       )}
-                      {/* {console.log(row)} */}
+                      {title === "topic-data" && (
+                        <Tooltip title="lihat Detail">
+                          <IconButton
+                            className="text-sky-500"
+                            onClick={() => {
+                              navigate(link, {
+                                state: {
+                                  id: row.original.id,
+                                },
+                              });
+                            }}
+                          >
+                            <VisibilityIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                       <Tooltip title="Ubah">
                         <IconButton
                           className="text-yellow-500"
