@@ -171,7 +171,6 @@ const DataTable = ({
           <TableBody {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row);
-
               return (
                 <TableRow {...row.getRowProps()}>
                   {row.cells.map((cell) => {
@@ -238,22 +237,36 @@ const DataTable = ({
                           <EditIcon />
                         </IconButton>
                       </Tooltip>
-
-                      <Tooltip title="Delete">
-                        <IconButton
-                          className="text-rose-500"
-                          onClick={() => {
-                            setOpenConfirm(true);
-                            setIdData(row.original.id);
-                          }}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Tooltip>
+                      {title === "dataset" ? (
+                        <Tooltip title="Delete">
+                          <IconButton
+                            className="text-rose-500"
+                            onClick={() => {
+                              setOpenConfirm(true);
+                              setIdData(row.original.datasetId);
+                            }}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="Delete">
+                          <IconButton
+                            className="text-rose-500"
+                            onClick={() => {
+                              setOpenConfirm(true);
+                              setIdData(row.original.id);
+                            }}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                     </TableCell>
                   ) : (
                     ""
                   )}
+                  {/* {setOpen} */}
                 </TableRow>
               );
             })}

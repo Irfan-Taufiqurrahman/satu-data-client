@@ -49,3 +49,61 @@ export const getAllDetailData = async (id) => {
     throw new Error(err.response);
   }
 };
+
+export const createDatasetData = async (data) => {
+  try {
+    // console.log(data);
+    const res = await axios({
+      url: `http://127.0.0.1:8000/api/dataset/excel/import`,
+      method: `post`,
+      data: data,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${cookies.get("Authorization")}`,
+      },
+    });
+    // console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log(err.response);
+    throw new Error(err.response);
+  }
+};
+
+export const removeDataset = async (id) => {
+  // console.log(id);
+  try {
+    const res = await axios({
+      url: `http://127.0.0.1:8000/api/dataset/excel/delete/${id}`,
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.get("Authorization")}`,
+      },
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err.response);
+    throw new Error(err.response);
+  }
+};
+
+export const updateDatasetData = async ({ data, id }) => {
+  console.log(id);
+  try {
+    const res = await axios({
+      url: `http://127.0.0.1:8000/api/dataset/excel/edit/${id}`,
+      method: "patch",
+      data: data,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.get("Authorization")}`,
+      },
+    });
+    // console.log(data);
+    return res.data;
+  } catch (err) {
+    console.log(err.response);
+    throw new Error(err.response);
+  }
+};
