@@ -32,18 +32,19 @@ import {
 import TheamticData from "./pages/TheamticData";
 import TopicData from "./pages/TopicData";
 import DetailTopic from "./pages/DetailTopic";
+import Dataset from "./pages/Dataset";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <DataLayout />,
     errorElement: <ErrorPage />,
     loader: rootLoader,
     action: rootAction,
     children: [
       {
         index: true,
-        element: <Index />,
+        element: <Dataset />,
       },
     ],
   },
