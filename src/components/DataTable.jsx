@@ -192,7 +192,7 @@ const DataTable = ({
                           <IconButton
                             className="text-sky-500"
                             onClick={() => {
-                              navigate(link + row.original.id);
+                              navigate(link + row.original.code_main);
                             }}
                           >
                             <ViewWeekIcon />
