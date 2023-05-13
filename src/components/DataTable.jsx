@@ -123,6 +123,7 @@ const DataTable = ({
     useGlobalFilter,
     usePagination
   );
+  // console.log(data);
   const navigate = useNavigate();
   return (
     <div className="">
@@ -148,7 +149,11 @@ const DataTable = ({
         </div>
       </div>
       <TableContainer component={Paper} className="shadow-md ">
-        <Table {...getTableProps()}>
+        <Table
+          {...getTableProps()}
+          sx={{ minWidth: 650 }}
+          aria-label="simple table"
+        >
           <TableHead>
             {headerGroups.map((headerGroup) => (
               <TableRow
@@ -218,6 +223,22 @@ const DataTable = ({
                               navigate(link, {
                                 state: {
                                   id: row.original.id,
+                                },
+                              });
+                            }}
+                          >
+                            <VisibilityIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+                      {title === "dataset" && (
+                        <Tooltip title="lihat Detail">
+                          <IconButton
+                            className="text-sky-500"
+                            onClick={() => {
+                              navigate(link, {
+                                state: {
+                                  id: row.original.datasetId,
                                 },
                               });
                             }}

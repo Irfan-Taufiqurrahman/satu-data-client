@@ -414,6 +414,7 @@ const Dataset = () => {
             setDataEdit={setDataEdit}
             setIdData={setIdData}
             title="dataset"
+            link="/main-data/datalist"
             setOpenConfirm={setOpenConfirm}
           />
           {openConfirm && (

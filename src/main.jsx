@@ -33,6 +33,7 @@ import TheamticData from "./pages/TheamticData";
 import TopicData from "./pages/TopicData";
 import DetailTopic from "./pages/DetailTopic";
 import Dataset from "./pages/Dataset";
+import DataList from "./pages/DataList";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,11 @@ const router = createBrowserRouter([
         index: false,
         path: "detail-topic-data/",
         element: <DetailTopic />,
+      },
+      {
+        index: false,
+        path: "datalist/",
+        element: <DataList />,
       },
     ],
   },
