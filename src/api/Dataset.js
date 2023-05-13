@@ -50,6 +50,25 @@ export const getAllDetailData = async (id) => {
   }
 };
 
+// export const getDataList = async (id) => {
+//   try {
+//     const res = await axios.get(
+//       `http://127.0.0.1:8000/api/dataset/excel/${id}`,
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${cookies.get("Authorization")}`,
+//         },
+//       }
+//     );
+//     console.log(res.data);
+//     return res.data;
+//   } catch (err) {
+//     console.log(err.response);
+//     throw new Error(err.response);
+//   }
+// };
+
 export const createDatasetData = async (data) => {
   try {
     // console.log(data);
