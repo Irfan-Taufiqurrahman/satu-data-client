@@ -325,8 +325,12 @@ const TheamticData = () => {
   const [openEdit, setOpenEdit] = useState(false);
 
   const thematicDataDelete = useMutation(removeThematicData);
-  const { data, isLoading } = useQuery("theamticData", () =>
-    getTheamticData(id)
+  const { data, isLoading } = useQuery(
+    "theamticData",
+    () => getTheamticData(id),
+    {
+      refetchInterval: 200,
+    }
   );
   const columns = useMemo(
     () => [
@@ -358,7 +362,7 @@ const TheamticData = () => {
             className="mb-4"
             onClick={() => setOpenAdd(true)}
           >
-            Main Data
+            Thematic Data
           </Button>
           {openAdd && <ModalTambah setOpenAdd={setOpenAdd} id={id} />}
 
