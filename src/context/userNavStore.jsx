@@ -2,6 +2,7 @@ import create from "zustand";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
+import FunctionsIcon from "@mui/icons-material/Functions";
 
 const useNavStore = create((set, get) => ({
   activeNav: [
@@ -34,6 +35,16 @@ const useNavStore = create((set, get) => ({
       asesor: true,
       admin: false,
       icon: <NoteAltIcon />,
+    },
+    {
+      id: 4,
+      name: "Perhitungan",
+      href: "/perhitungan",
+      active: false,
+      asesi: true,
+      asesor: true,
+      admin: false,
+      icon: <FunctionsIcon />,
     },
   ],
   findNav: (label) => {

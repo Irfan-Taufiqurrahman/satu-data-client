@@ -34,6 +34,7 @@ import TopicData from "./pages/TopicData";
 import DetailTopic from "./pages/DetailTopic";
 import Dataset from "./pages/Dataset";
 import DataList from "./pages/DataList";
+import Perhitungan from "./pages/Perhitungan";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +50,16 @@ const router = createBrowserRouter([
       },
     ],
   },
-
+  {
+    path: "perhitungan",
+    element: <DataLayout />,
+    children: [
+      {
+        index: true,
+        element: <Perhitungan />,
+      },
+    ],
+  },
   {
     path: "main-data",
     element: <DataLayout />,
