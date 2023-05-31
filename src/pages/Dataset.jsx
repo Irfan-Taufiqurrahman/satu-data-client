@@ -15,9 +15,12 @@ import * as yup from "yup";
 import FieldInput from "./config/fieldInput";
 import TextAreaInput from "../components/TextAreaInput";
 import FileInput from "../components/FileInput";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
 
 const ModalTambah = ({ setOpenAdd }) => {
   const topicDataMutation = useMutation(createDatasetData, {
+    // on
     onSuccess: () => {
       setOpenAdd(false);
     },
@@ -145,21 +148,35 @@ const ModalTambah = ({ setOpenAdd }) => {
                 {/* <!-- Modal footer --> */}
                 {/* {console.log(values)} */}
                 <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b ">
-                  <button
-                    data-modal-hide="defaultModal"
-                    type="submit"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-                    disabled={isSubmitting}
-                  >
-                    Buat
-                  </button>
+                  {/* <Loading */}
+                  {/* {console.log(topicDataMutation.isLoading)} */}
+                  {topicDataMutation.isLoading ? (
+                    <LoadingButton
+                      loading
+                      loadingPosition="start"
+                      startIcon={<SaveIcon />}
+                      variant="contained"
+                    >
+                      Loading...
+                    </LoadingButton>
+                  ) : (
+                    <button
+                      data-modal-hide="defaultModal"
+                      type="submit"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                      disabled={isSubmitting}
+                    >
+                      BUAT
+                    </button>
+                  )}
+
                   <button
                     data-modal-hide="defaultModal"
                     type="button"
                     className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 "
                     onClick={() => setOpenAdd(false)}
                   >
-                    Batal
+                    BATAL
                   </button>
                 </div>
               </Form>
