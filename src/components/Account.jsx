@@ -236,8 +236,8 @@ const UsersTable = () => {
                         <th scope="col" className="px-4 py-3">Status Konfirmasi</th>
                         <th scope="col" className="px-8 py-3">PIC</th>
                         <th scope="col" className="px-6 py-3">Surat Pengantar</th>
-                        <th scope="col" className="px-6 py-3">Edit</th>
-                        <th scope="col" className="px-6 py-3">Delete</th>
+                        {/* <th scope="col" className="px-6 py-3">Edit</th> */}
+                        <th scope="col" className="px-6 py-3">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -251,7 +251,7 @@ const UsersTable = () => {
                             <td className="px-6 py-4">{user.confirmed ? 'Yes': 'No'}</td> {/* Display "Yes" or "No" based on the confirmed value */}
                             <td className="px-6 py-4">{user.pic}</td>
                             <td className="px-6 py-4">{user.covering_letter}</td>
-                            <td className="px-6 py-4"><Tooltip title="Edit">
+                            {/* <td className="px-6 py-4"><Tooltip title="Edit">
                                 <IconButton
                                     className="text-rose-500"
                                     onClick={() => handelClick(user)}
@@ -264,7 +264,7 @@ const UsersTable = () => {
                                         data = {editData}
                                     />
                                 )}
-                            </td>
+                            </td> */}
                             <td className="px-6 py-4"><Tooltip title="Delete">
                                 <IconButton
                                     className="text-rose-500"

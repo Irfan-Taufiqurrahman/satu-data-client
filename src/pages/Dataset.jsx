@@ -57,8 +57,8 @@ const ModalTambah = ({ setOpenAdd }) => {
       ),
     description: yup
       .string()
-      .required("Description harus diisi")
-      .max(100, "Description harus kurang dari 100 kata"),
+      .required("Deskripsi harus diisi")
+      .max(100, "Deskripsi harus kurang dari 100 kata"),
   });
 
   return (
@@ -106,13 +106,13 @@ const ModalTambah = ({ setOpenAdd }) => {
                   <FieldInput
                     error={errors.title}
                     name="title"
-                    label="Name"
+                    label="Nama"
                     mandatory={true}
                     type="text"
                   />
                   <TextAreaInput
                     error={errors.description}
-                    label="Description"
+                    label="Deskripsi"
                     name="description"
                     mandatory
                   />
@@ -389,15 +389,15 @@ const Dataset = () => {
         accessor: "datasetId",
       },
       {
-        Header: "Name",
+        Header: "Judul",
         accessor: "title",
       },
       {
-        Header: "Source",
+        Header: "Sumber Data",
         accessor: "name_excel",
       },
       {
-        Header: "Description",
+        Header: "Deskripsi",
         accessor: "description",
       },
     ],

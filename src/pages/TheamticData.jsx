@@ -25,14 +25,14 @@ const ModalTambah = ({ setOpenAdd, id }) => {
   const validationSchema = yup.object({
     code_thematic: yup
       .number("Harus Angka")
-      .max(100, "Code Thematic harus kurang dari 100")
-      .required("Code Thematic tidak boleh kosong"),
+      .max(100, "Kode Thematic harus kurang dari 100")
+      .required("Kode Thematic tidak boleh kosong"),
     main_code: yup
       .number("Harus Angka")
       .required("Code Main tidak boleh kosong"),
     title_thematic: yup
-      .string("Masukkan Title Thematic")
-      .required("Title Thematic tidak boleh kosong"),
+      .string("Masukkan Judul Thematic")
+      .required("Judul Thematic tidak boleh kosong"),
   });
   return (
     <div className="fixed flex justify-center items-center top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto inset-0 h-modal h-full bg-gray-400/30">
@@ -86,14 +86,14 @@ const ModalTambah = ({ setOpenAdd, id }) => {
                   <FieldInput
                     error={errors.code_thematic}
                     name="code_thematic"
-                    label="Code Thematic"
+                    label="Kode Thematic"
                     mandatory={true}
                     type="number"
                   />
                   <FieldInput
                     error={errors.title_thematic}
                     name="title_thematic"
-                    label="Title Thematic"
+                    label="Judul Thematic"
                     mandatory={true}
                     type="text"
                   />
@@ -335,11 +335,11 @@ const TheamticData = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "Code Thematic",
+        Header: "Kode Thematic",
         accessor: "code_thematic",
       },
       {
-        Header: "Title Thematic",
+        Header: "Judul Thematic",
         accessor: "title_thematic",
       },
     ],

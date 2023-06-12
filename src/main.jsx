@@ -35,6 +35,8 @@ import DetailTopic from "./pages/DetailTopic";
 import Dataset from "./pages/Dataset";
 import DataList from "./pages/DataList";
 import Perhitungan from "./pages/Perhitungan";
+import DetailSubTopic from "./pages/DetailSubTopic";
+import SubTopicData from "./pages/SubTopicData";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +78,11 @@ const router = createBrowserRouter([
       },
       {
         index: false,
+        path: "sub-topic-data/",
+        element: <SubTopicData />,
+      },
+      {
+        index: false,
         path: "theamtic-data/:id",
         element: <TheamticData />,
       },
@@ -83,6 +90,11 @@ const router = createBrowserRouter([
         index: false,
         path: "detail-topic-data/",
         element: <DetailTopic />,
+      },
+      {
+        index: false,
+        path: "detail-subtopic-data/",
+        element: <DetailSubTopic />,
       },
       {
         index: false,

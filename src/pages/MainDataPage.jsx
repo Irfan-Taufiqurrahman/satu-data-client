@@ -81,7 +81,7 @@ const ModalTambah = ({ setOpenAdd }) => {
                   <FieldInput
                     error={errors.code_main}
                     name="code_main"
-                    label="Code Main"
+                    label="Kode Main"
                     mandatory={true}
                     type="number"
                   />
@@ -132,7 +132,7 @@ const ModalUbah = ({ setOpenEdit, data }) => {
   const validationSchema = yup.object({
     code_main: yup
       .number("Harus Angka")
-      .required("Code Main tidak boleh kosong"),
+      .required("Kode Main tidak boleh kosong"),
     title_main: yup
       .string("Masukkan Title Main")
       .required("Title Main tidak boleh kosong"),
@@ -319,11 +319,11 @@ const MainDataPage = () => {
 
   const columns = useMemo(() => [
     {
-      Header: "Code Main Data",
+      Header: "Kode Main Data",
       accessor: "code_main",
     },
     {
-      Header: "Title Main Data",
+      Header: "Judul Main Data",
       accessor: "title_main",
     },
   ]);

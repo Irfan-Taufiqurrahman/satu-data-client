@@ -26,7 +26,7 @@ const ModalTambah = ({ setOpenAdd, id }) => {
   const validationSchema = yup.object({
     code_topic: yup
       .number("Harus Angka")
-      .required("Code Topic tidak boleh kosong"),
+      .required("Kode Topic tidak boleh kosong"),
     kinerja_utama: yup
       .string("Masukkan Kinerja Utama")
       .required("Kinerja Utama tidak boleh kosong"),
@@ -95,7 +95,7 @@ const ModalTambah = ({ setOpenAdd, id }) => {
                   <FieldInput
                     error={errors.code_topic}
                     name="code_topic"
-                    label="Code Topic"
+                    label="Kode Topic"
                     mandatory={true}
                     type="number"
                   />
@@ -160,8 +160,8 @@ const ModalUbah = ({ setOpenEdit, data }) => {
 
   const validationSchema = yup.object({
     code_topic: yup
-      .string("Masukkan Code Topic")
-      .required("Code Topic tidak boleh kosong"),
+      .string("Masukkan Kode Topic")
+      .required("Kode Topic tidak boleh kosong"),
     kinerja_utama: yup
       .string("Masukkan Kinerja Utama")
       .required("Kinerja Utama tidak boleh kosong"),
@@ -229,7 +229,7 @@ const ModalUbah = ({ setOpenEdit, data }) => {
                   <FieldInput
                     error={errors.code_topic}
                     name="code_topic"
-                    label="Code Topic"
+                    label="Kode Topic"
                     mandatory={true}
                     type="text"
                   />
@@ -380,7 +380,7 @@ const TopicData = () => {
 
   const columns = useMemo(() => [
     {
-      Header: "Code Topic",
+      Header: "Kode Topic",
       accessor: "code_topic",
     },
     {
@@ -433,9 +433,10 @@ const TopicData = () => {
             setDataEdit={setDataEdit}
             setIdData={setIdData}
             setOpenConfirm={setOpenConfirm}
-            link={"/main-data/detail-topic-data/"}
-            title="topic-data"
+            link={"/main-data/sub-topic-data/"}
+            title="sub-topik"
           />
+          {/* console.log() */}
           {openConfirm && (
             <ModalConfirm
               setOpenConfirm={setOpenConfirm}

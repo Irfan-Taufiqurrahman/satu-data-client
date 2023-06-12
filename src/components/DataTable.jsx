@@ -166,7 +166,7 @@ const DataTable = ({
                   </TableCell>
                 ))}
                 {setOpenEdit && setDataEdit && setOpenConfirm && setIdData ? (
-                  <TableCell align="center">Action</TableCell>
+                  <TableCell align="center">Aksi</TableCell>
                 ) : (
                   ""
                 )}
@@ -176,6 +176,7 @@ const DataTable = ({
           <TableBody {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row);
+              // console.log(row.original)
               return (
                 <TableRow {...row.getRowProps()}>
                   {row.cells.map((cell) => {
@@ -223,6 +224,22 @@ const DataTable = ({
                               navigate(link, {
                                 state: {
                                   id: row.original.id,
+                                },
+                              });
+                            }}
+                          >
+                            <VisibilityIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+                      {title === "sub-topik" && (
+                        <Tooltip title="lihat Detail">
+                          <IconButton
+                            className="text-sky-500"
+                            onClick={() => {
+                              navigate(link, {
+                                state: {
+                                  id: row.original.code_topic,
                                 },
                               });
                             }}
