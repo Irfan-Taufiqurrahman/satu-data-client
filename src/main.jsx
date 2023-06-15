@@ -37,6 +37,7 @@ import DataList from "./pages/DataList";
 import Perhitungan from "./pages/Perhitungan";
 import DetailSubTopic from "./pages/DetailSubTopic";
 import SubTopicData from "./pages/SubTopicData";
+import ChartPerhitungan from "./pages/ChartPerhitungan";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,11 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Perhitungan />,
+      },
+      {
+        index: false,
+        path: "chart/",
+        element: <ChartPerhitungan />,
       },
     ],
   },

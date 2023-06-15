@@ -1,21 +1,48 @@
 import React, { useEffect, useState } from "react";
 
 // import { dataRumus } from "../data/dataHitung";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getDataMentah } from "../api/datamentah";
 import Loading from "../components/Loading";
+import { Form, Formik, Field } from "formik";
+import FieldInput from "./config/fieldInput";
+import SelectInput from "../components/SelectInput";
+import * as yup from "yup";
+import { Alert, Button } from "@mui/material";
+import { createPerhitungan } from "../api/perhitungan";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import { useNavigate } from "react-router-dom";
 
 const Perhitungan = () => {
   const [selectedIdAtas, setSelectedIdAtas] = useState("");
   const [variableAtas, setVariableAtas] = useState({});
   const [selectedIdBawah, setSelectedIdBawah] = useState("");
   const [variableBawah, setVariableBawah] = useState({});
-  const [result, setResult] = useState("0");
-
+  const [result, setResult] = useState(0);
   const dataRumuses = useQuery("dataMentah", getDataMentah);
+  const startYear = 2010;
+  const [statusDone, setStatusDone] = useState(false);
+  const currentYear = new Date().getFullYear();
+  const years = Array.from(
+    { length: currentYear - startYear + 1 },
+    (_, index) => startYear + index
+  );
+  const optionYear = years.map((year, index) => ({
+    id: index,
+    value: year,
+    name: year,
+  }));
+  const queryClient = useQueryClient();
 
-  console.log(dataRumuses.data);
-
+  const perhitunganMutation = useMutation(createPerhitungan, {
+    onSuccess: () => {
+      // setOpenAdd(false);
+      queryClient.invalidateQueries(["perhitungan"]);
+      setStatusDone(true);
+      console.log("sukses");
+    },
+  });
+  const navigate = useNavigate();
   const handleSelectChangeAtas = (e) => {
     const id = parseInt(e.target.value);
     setSelectedIdAtas(id);
@@ -50,13 +77,29 @@ const Perhitungan = () => {
       }
     }
   }, [variableAtas.value, variableBawah.value]);
-
+  const validationSchema = yup.object({
+    value: yup.number("Hasil Harus ada").required("Hasil tidak boleh kosong"),
+    tahun: yup.string("Masukkan Tahun").required("Tahun tidak boleh kosong"),
+  });
   return (
     <div>
       <div className="text-center font-bold pb-8 text-xl text-gray-800">
         Perhitungan
         <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
       </div>
+      {statusDone && (
+        <Alert className="mb-8" onClose={() => setStatusDone(false)}>
+          Data Berhasil Disimpan!
+        </Alert>
+      )}
+      <Button
+        variant="outlined"
+        startIcon={<BarChartIcon />}
+        className="mb-8"
+        onClick={() => navigate("/perhitungan/chart")}
+      >
+        Chart
+      </Button>
       {dataRumuses.isLoading ? (
         <Loading />
       ) : (
@@ -163,6 +206,47 @@ const Perhitungan = () => {
           </div>
         </div>
       )}
+      <div className="">
+        <Formik
+          initialValues={{
+            tahun: "",
+            value: result,
+          }}
+          enableReinitialize
+          validationSchema={validationSchema}
+          onSubmit={(values) => {
+            // console.log(values);
+            perhitunganMutation.mutate(values);
+          }}
+        >
+          {({ values, errors }) => (
+            <Form>
+              {console.log(errors)}
+              <div className="flex w-full mt-4 justify-between">
+                <div className="w-9/12">
+                  <SelectInput
+                    option={optionYear}
+                    label="Pilih Tahun"
+                    name="tahun"
+                    key={1}
+                    error={errors.tahun}
+                    mandatory={true}
+                  />
+                </div>
+                <div className="align-bottom">
+                  <Button
+                    variant="contained"
+                    className="bg-sky-700"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };
